@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>socket io</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+
+<body class="container">
+    <h2 class="mt-5"> página</h2>
+    <hr>
+
+    <form action="" id="myForm">
+        <div class="row">
+            <div class="col-8">
+                <input type="text" name="" id="txtMessage" placeholder="menssage" class="form-control">
+            </div>
+            <div class="col-4">
+                <button class="btn btn-primary">sent</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col">
+            <ul class="misMensajes mt-4">
+                <li>hola</li>
+                <li>pillo</li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.js"
+        integrity="sha512-9mpsATI0KClwt+xVZfbcf2lJ8IFBAwsubJ6mI3rtULwyM3fBmQFzj0It4tGqxLOGQwGfJdk/G+fANnxfq9/cew=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        const socket = io('localhost:3001');
+        socket.on('mensaje-de-bienvenida', (data) => {
+            console.log('el servidor emitió un evento'); // here we catch the paylod from the server
+            console.log(data)
+        })
+
+        //emit event for the server
+        setTimeout(() => {
+            socket.emit('sending-client-message', {
+                msg: 'cliente mandando un msj',
+                name: 'Deniz Mancilla'
+            })
+        }, 2000)
+    </script>
+</body>
+
+</html>
