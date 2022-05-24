@@ -20,7 +20,7 @@
                 <input type="text" name="" id="txtMessage" placeholder="menssage" class="form-control">
             </div>
             <div class="col-4">
-                <button class="btn btn-primary">sent</button>
+                <button class="btn btn-primary" type="submit">sent</button>
             </div>
         </div>
     </form>
@@ -28,8 +28,7 @@
     <div class="row">
         <div class="col">
             <ul class="misMensajes mt-4">
-                <li>hola</li>
-                <li>pillo</li>
+                
             </ul>
         </div>
     </div>
@@ -44,18 +43,30 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         const socket = io('localhost:3001');
-        socket.on('mensaje-de-bienvenida', (data) => {
-            console.log('el servidor emitió un evento'); // here we catch the paylod from the server
-            console.log(data)
-        })
+    
+        const formReference = document.querySelector("#myForm");
+        const textAreaReference = document.querySelector("#misMensajes");
+        const txtMessage = document.querySelector("#txtMessage");
 
-        //emit event for the server
-        setTimeout(() => {
-            socket.emit('sending-client-message', {
-                msg: 'cliente mandando un msj',
-                name: 'Deniz Mancilla'
-            })
-        }, 2000)
+        formReference.addEventListener('submit',(e)=>{
+            e.preventDefault();
+            const getMessage = txtMessage.value;
+            console.log(getMessage);
+
+            socket.emit('client-menssage',{getMessage})
+        });
+
+        socket.on('msg-from-server',(message)=>{
+            console.log('msj from server :', message)
+            textAreaReference.innerHTML+= `<li> ${message.getMessage} </li>`
+        })
+        // //emit event for the server
+        // setTimeout(() => {
+        //     socket.emit('sending-client-message', {
+        //         msg: 'cliente mandando un msj',
+        //         name: 'Deniz Mancilla'
+        //     })
+        // }, 2000)
     </script>
 </body>
 

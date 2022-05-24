@@ -7,15 +7,16 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 //socket = cliente
 io.on('connection', (socket) => { 
-    console.log(socket.id);
-    socket.emit('mensaje-de-bienvenida', {
-        msg : 'Hola papucho',
-        date : new Date(),
-    })
-
     //listening event emited by the client
     socket.on('sending-client-message',(data)=>{
         console.log('receiving data from client side',data);
+    })
+
+    //receive message from client
+    socket.on('client-menssage',(message)=>{
+        console.log('mensaje del cliente :', message);
+
+        socket.emit('msg-from-server', message);
     })
 });
 
