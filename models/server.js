@@ -2,14 +2,14 @@
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
-const path = require('path')
-const Sockets = require('./sockets');
+const path = require('path');
 
+const Socketss = require('./sockets');
 class Server {
 
     constructor() {
         this.app = express();
-        this.port = 8080;
+        this.port = process.env.PORT;
 
         //Http server configuration
         this.server = http.createServer(this.app);
@@ -21,16 +21,16 @@ class Server {
         // Deploy public directory
         this.app.use(express.static(path.resolve(__dirname,'../public')))
     }
-    sockerConfiguration(){
+    socketConfiguration(){
         //socket = cliente
-        new Sockets(this.io);
+        new Socketss(this.io);
     }
 
     execute() {
         //initialation middlewares
         this.middlewares();
         //sockets nitialation
-        this.sockerConfiguration();
+        this.socketConfiguration();
 
         //init server
         this.server.listen(this.port, () => {
