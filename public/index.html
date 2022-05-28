@@ -50,15 +50,17 @@
         formReference.addEventListener('submit',(e)=>{
             e.preventDefault();
             const getMessage = txtMessage.value;
-            console.log(getMessage);
-
+            console.log('me ejeeeee')
             socket.emit('client-menssage',{getMessage})
         });
 
         socket.on('msg-from-server',(message)=>{
-            // console.log('msj from server :', message)
+            console.log('msj from server :', message)
             textAreaReference.innerHTML+= `<li> ${message.getMessage} </li>`
+            const test = console.log('me ejecuté')
         })
+
+        console.log('llego abajo')
         // //emit event for the server
         // setTimeout(() => {
         //     socket.emit('sending-client-message', {

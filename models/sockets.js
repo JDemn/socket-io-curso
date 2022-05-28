@@ -1,4 +1,4 @@
-class Sockets {
+class Socketss {
 
     constructor(io){
         this.io = io;
@@ -15,10 +15,10 @@ class Sockets {
             // })
         
             //receive message from client
-            this.io.on('client-menssage',(message)=>{
+            socket.on('client-menssage',(message)=>{
                 console.log('mensaje del cliente :', message);
         
-                socket.emit('msg-from-server', message);
+                this.io.emit('msg-from-server', message);
             })
         });
     }
@@ -26,4 +26,4 @@ class Sockets {
 
 
 
-module.exports = Sockets;
+module.exports = Socketss;
