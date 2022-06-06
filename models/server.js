@@ -22,7 +22,7 @@ class Server {
         // Deploy public directory
         this.app.use(express.static(path.resolve(__dirname,'../public')))
 
-        //CORS
+        //CORS  permite que otros sockets se conecten a nuestro server, sin esto da error en heroku
         this.app.use(cors());
     }
     socketConfiguration(){
